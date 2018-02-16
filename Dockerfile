@@ -15,8 +15,8 @@ RUN \
         curl \
         gettext \
         jq \
-    && curl -so /usr/local/bin/cfssl "https://pkg.cfssl.org/${CFSSL_VERSION}/cfssl_linux-amd64" \
-    && curl -so /usr/local/bin/cfssljson "https://pkg.cfssl.org/${CFSSL_VERSION}/cfssljson_linux-amd64" \
+    && curl -so /usr/local/bin/cfssl "https://pkg.cfssl.org/${CFSSL_VERSION}/cfssl_linux-arm" \
+    && curl -so /usr/local/bin/cfssljson "https://pkg.cfssl.org/${CFSSL_VERSION}/cfssljson_linux-arm" \
     && chmod +x /usr/local/bin/cfssl /usr/local/bin/cfssljson \
     && mkdir -p /var/lib/cfssl
 
