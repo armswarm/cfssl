@@ -19,7 +19,7 @@ _setup_ca(){
         && return
 
     [ -f "${_workdir}/ca-key.pem" ] && _args="-ca-key=${_workdir}/ca-key.pem"
-    [ ! -z "${CFSSL_CA_O}" ] && _extras=", [ \"names\": {\"O\": \"${CFSSL_CA_O}\"} ]"
+    [ ! -z "${CFSSL_CA_O}" ] && _extras=", \"names\": [ {\"O\": \"${CFSSL_CA_O}\"} ]"
     cfssl gencert -initca ${_args} - << EOF | cfssljson -bare "${_workdir}/ca"
     { "CN": "${CFSSL_CA_CN}", "key": { "algo": "ecdsa", "size": 521 }, "ca": { "expiry": "${CFSSL_CA_EXPIRY_HOURS}h" }${_extras} }
 EOF
