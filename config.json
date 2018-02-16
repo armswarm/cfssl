@@ -1,0 +1,52 @@
+{
+    "signing": {
+        "default": {
+            "auth_key": "unused",
+            "expiry": "${CFSSL_CERT_EXPIRY_HOURS}h"
+        },
+        "profiles": {
+            "client": {
+                "expiry": "${CFSSL_CERT_EXPIRY_HOURS}h",
+                "usages": [
+                    "signing",
+                    "key encipherment",
+                    "client auth"
+                ],
+                "auth_key": "client"
+            },
+            "server": {
+                "expiry": "${CFSSL_CERT_EXPIRY_HOURS}h",
+                "usages": [
+                    "signing",
+                    "key encipherment",
+                    "server auth"
+                ],
+                "auth_key": "server"
+            },
+            "client-server": {
+                "expiry": "${CFSSL_CERT_EXPIRY_HOURS}h",
+                "usages": [
+                    "signing",
+                    "key encipherment",
+                    "server auth",
+                    "client auth"
+                ],
+                "auth_key": "server"
+            }
+        }
+    },
+    "auth_keys": {
+        "server": {
+            "type": "standard",
+            "key": "${CFSSL_AUTH_SERVER}"
+        },
+        "client": {
+            "type": "standard",
+            "key": "${CFSSL_AUTH_CLIENT}"
+        },
+        "unused": {
+            "type": "standard",
+            "key": "${CFSSL_AUTH_UNUSED}"
+        }
+    }
+}
