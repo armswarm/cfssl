@@ -10,11 +10,12 @@ _cert_should_renew() {
     [ -f "${1}.pem" ] \
         && [ -f "${1}-key.pem" ] \
         && [ "$(date +%s)" -lt $(( $(date -d "$(cfssl certinfo -cert=${1}.pem | jq -r '.not_after')" +%s) - 7 * 24 * 3600 )) ] \
-        && return 1
+        && return 1 \
+        || return 0
 }
 
 _setup_ca(){
-    _cert_should_renew "${_workdir}/ca" || return
+    _cert_should_renew "${_workdir}/ca" || return 0
 
     [ -f "${_workdir}/ca-key.pem" ] && _args="-ca-key=${_workdir}/ca-key.pem"
     [ ! -z "${CFSSL_CA_O}" ] && _extras=", \"names\": [ {\"O\": \"${CFSSL_CA_O}\"} ]"
