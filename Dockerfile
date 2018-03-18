@@ -6,7 +6,7 @@ ENV CFSSL_VERSION=$CFSSL_VERSION \
     CFSSL_CA_EXPIRY_HOURS=43630 \
     CFSSL_CERT_EXPIRY_HOURS=8760
 
-ADD config.json /etc/cfssl/config.json
+ADD config-service.json config-client.json /etc/cfssl/
 ADD docker-entrypoint.sh /
 
 RUN \
@@ -25,3 +25,4 @@ VOLUME /var/lib/cfssl
 EXPOSE 8888
 
 ENTRYPOINT [ "/docker-entrypoint.sh" ]
+CMD [ "service" ]
