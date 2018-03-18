@@ -9,7 +9,7 @@ _usage() {
 _cert_should_renew() {
     [ -f "${1}.pem" ] \
         && [ -f "${1}-key.pem" ] \
-        && [ "$(date +%s)" -lt $(( $(date -d "$(cfssl certinfo -cert=${1} | jq -r '.not_after')" +%s) - 7 * 24 * 3600 )) ] \
+        && [ "$(date +%s)" -lt $(( $(date -d "$(cfssl certinfo -cert=${1}.pem | jq -r '.not_after')" +%s) - 7 * 24 * 3600 )) ] \
         && return 1
 }
 
