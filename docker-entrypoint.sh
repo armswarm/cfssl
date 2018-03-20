@@ -42,7 +42,6 @@ _newcert() {
 EOF
 
     cfssl info -config="${_config}" | cfssljson -bare "${_output_path}/ca"
-
 }
 
 [ "$#" -ne 1 ] || [ "${1}" != "service" ] && [ "${1}" != "newcert" ] && _usage
@@ -60,6 +59,9 @@ if [ "${1}" = "newcert" ]; then
 
     # generate certificate
     _newcert
+
+    # fix permissions
+    chown "${CERT_FILE_OWNER:-root}:${CERT_FILE_GROUP:-root}" /out/*
 
 elif [ "${1}" = "service" ]; then
     [ -z "${CFSSL_CA_CN}" ] && echo "CFSSL_CA_CN must be set" && exit 1
